@@ -2,13 +2,7 @@ import variables as variable
 import time
 from os import *
 
-class Customer():
-
-    name = input("Name: ")
-    id = int(input("ID: "))
-    phone = int(input("Phone: "))
-    direction = input("Direction: ")
-
+class Customer:
     def __init__(self, name:str, id:int, phone:int, direction:str):
         self.name = name
         self.id = id
@@ -16,20 +10,14 @@ class Customer():
         self.direction = direction
     
     def showCustomer(self):        
-        print("----------------------------------")
+        print("-------------------------------------------------")
         print("Name: ", self.name)
         print("ID: ", str(self.id))
         print("Phone: ", str(self.phone))
         print("Direction: ", self.direction)
-        print("----------------------------------")
+        print("-------------------------------------------------")
 
-class Product():
-
-    id = int(input("ID: "))
-    name = input("Name: ")
-    price = float(input("Price: "))
-    quantity = int(input("Quantity: "))
-
+class Product:
     def __init__(self, id:int, name:str, price:float, quantity:int):
         self.id = id
         self.name = name
@@ -62,8 +50,8 @@ class Bill():
                 break
     
     def showBill(self): # Show the bill
-        Customer.showCustomer()
-        print("ID","\t","Name","\t\t","Price","\t","Quantity")
+        Customer.showCustomer(self.customer)
+        print("ID","\t","Name","\t\t","Price","\t\t","Quantity")
         for i in range(len(self.listOfProducts)):             
             print(self.listOfProducts[i].id,"\t",
                   self.listOfProducts[i].name,"\t",
@@ -71,20 +59,34 @@ class Bill():
                   self.listOfProducts[i].quantity)
 
 def createProduct():
-    newProduct = Product()
-    return newProduct
+    while True:
+        try:
+            id = int(input("ID: "))
+            name = input("Name: ")
+            price = float(input("Price: "))
+            quantity = int(input("Quantity: "))
+            newProduct = Product(id, name, price, quantity)
+            return newProduct
+            break
+        except:
+            print("Invalid input")
 
 def createCustomer():
-    newCustomer = Customer()
-    return newCustomer
+    while True:
+        try:
+            name = input("Name: ")
+            id = int(input("ID: "))
+            phone = int(input("Phone: "))
+            direction = input("Direction: ")
+            newCustomer = Customer(name, id, phone, direction)
+            return newCustomer
+            break
+        except:
+            print("Invalid input")
 
 def createNewBill(customer:object):
     newBill = Bill(customer)
     return newBill
-
-def deleteBill():
-    global newBill
-    del newBill
 
 def showMainMenu():
     print("-----------------------------")
@@ -94,15 +96,23 @@ def showMainMenu():
     print("|   4. Pay                  |")
     print("-----------------------------")
 
+def invalidOption():
+    print("Option not avaible!")
+    time.sleep(1)
+
 def main():
     system('cls')
     showMainMenu()
     userOption = input(" Select an option: ")
     if userOption == "1":
         system('cls')
+        print("-----------------------------")
+        print("    Customer information")
+        print("-----------------------------")
         variable.customer = createCustomer()
         print("-----------------------------")
         variable.newBill = createNewBill(variable.customer)
+        print("-----------------------------")
         variable.newBill.addProduct(createProduct())
         print("-----------------------------")  
         while True:
@@ -114,8 +124,18 @@ def main():
             else:
                 break
     elif userOption == "2":
-        del variable.newBill
-    elif userOption == "3":
         system('cls')
-        variable.newBill.showBill()   
-    
+        del variable.newBill
+        input("Bill deleted!")
+    elif userOption == "3":
+        try:
+            system('cls')
+            variable.newBill.showBill()
+            input("")
+        except:
+            print("There is no a bill created yet!")
+    elif userOption == "4":
+        system('cls')
+        variable.newBill.showBill()
+    else:
+        invalidOption()
