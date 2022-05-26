@@ -1,0 +1,2 @@
+customer = None
+newBill = None

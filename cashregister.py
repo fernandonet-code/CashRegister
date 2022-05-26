@@ -1,21 +1,35 @@
+import variables as variable
 import time
+from os import *
 
 class Customer():
-    def __init__(self, name:str, id:int, cellNumber:int, direction:str):
+
+    name = input("Name: ")
+    id = int(input("ID: "))
+    phone = int(input("Phone: "))
+    direction = input("Direction: ")
+
+    def __init__(self, name:str, id:int, phone:int, direction:str):
         self.name = name
         self.id = id
-        self.cellNumber = cellNumber
+        self.phone = phone 
         self.direction = direction
     
-    def showCustomer(self):
+    def showCustomer(self):        
         print("----------------------------------")
         print("Name: ", self.name)
-        print("id: ", str(self.id))
-        print("Cellphone number: ", str(self.cellNumber))
+        print("ID: ", str(self.id))
+        print("Phone: ", str(self.phone))
         print("Direction: ", self.direction)
         print("----------------------------------")
 
 class Product():
+
+    id = int(input("ID: "))
+    name = input("Name: ")
+    price = float(input("Price: "))
+    quantity = int(input("Quantity: "))
+
     def __init__(self, id:int, name:str, price:float, quantity:int):
         self.id = id
         self.name = name
@@ -24,7 +38,7 @@ class Product():
         
     def showProduct(self):
         print("---------------------------")
-        print("id:    ", str(self.id))
+        print("ID:    ", str(self.id))
         print("Name:  ", self.name)
         print("Price: ", str(self.price))
         print("Quantity: ", str(self.quantity))
@@ -39,57 +53,69 @@ class Bill():
     def addProduct(self, newProduct:object): # Add products to the bill
         self.listOfProducts.append(newProduct)
         print("Product added!")
-        time.sleep(2)
     
     def removeProduct(self, id:int): # Remove a product and its associated quantity
         for i in range(0, len(self.listOfProducts)):
             if self.listOfProducts[i].id == id:
                 self.listOfProducts.pop(i)
                 print("Product removed!")
-                time.sleep(2)
                 break
     
     def showBill(self): # Show the bill
-        print("-----------------------------------------")
-        print("Customer Name: ", self.customer.name)
-        print("ID: ", self.customer.id)
-        print("Cellphone Number: ", self.customer.cellNumber)
-        print("Direction: ", self.customer.direction)
-        print("-----------------------------------------")
+        Customer.showCustomer()
         print("ID","\t","Name","\t\t","Price","\t","Quantity")
-        for i in range(len(self.listOfProducts)):            
+        for i in range(len(self.listOfProducts)):             
             print(self.listOfProducts[i].id,"\t",
                   self.listOfProducts[i].name,"\t",
                   self.listOfProducts[i].price,"\t",
                   self.listOfProducts[i].quantity)
-        time.sleep(2)
 
 def createProduct():
-    id = int(input("id: "))
-    name = input("Name: ")
-    price = float(input("Price: "))
-    quantity = int(input("Quantity: "))
-    newProduct = Product(id, name, price, quantity)
+    newProduct = Product()
     return newProduct
 
 def createCustomer():
-    name = input("Name: ")
-    id = int(input("id: "))
-    cellNumber = int(input("Cellphone number: "))
-    direction = input("Direction: ")
-    newCustomer = Customer(name, id, cellNumber, direction)
+    newCustomer = Customer()
     return newCustomer
+
+def createNewBill(customer:object):
+    newBill = Bill(customer)
+    return newBill
+
+def deleteBill():
+    global newBill
+    del newBill
 
 def showMainMenu():
     print("-----------------------------")
     print("|   1. Create new bill      |")
     print("|   2. Delete bill          |")
     print("|   3. Show bill            |")
-    print("|   4. Collect              |")
+    print("|   4. Pay                  |")
     print("-----------------------------")
 
-def showSecondaryMenu():
-    print("-----------------------------")
-    print("|   1. Add new product      |")
-    print("|   2. Remove product       |")
-    print("-----------------------------")
+def main():
+    system('cls')
+    showMainMenu()
+    userOption = input(" Select an option: ")
+    if userOption == "1":
+        system('cls')
+        variable.customer = createCustomer()
+        print("-----------------------------")
+        variable.newBill = createNewBill(variable.customer)
+        variable.newBill.addProduct(createProduct())
+        print("-----------------------------")  
+        while True:
+            userOption = input("Add another product? (y/n) ")
+            print("-----------------------------")
+            if userOption == "y" or userOption == "Y":
+                variable.newBill.addProduct(createProduct())
+                print("-----------------------------")
+            else:
+                break
+    elif userOption == "2":
+        del variable.newBill
+    elif userOption == "3":
+        system('cls')
+        variable.newBill.showBill()   
+    
