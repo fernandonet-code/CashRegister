@@ -51,12 +51,9 @@ class Bill():
     
     def showBill(self): # Show the bill
         Customer.showCustomer(self.customer)
-        print("ID","\t","Name","\t\t","Price","\t\t","Quantity")
+        print("ID","\t","Name","\t","Price","\t","Quantity")
         for i in range(len(self.listOfProducts)):             
-            print(self.listOfProducts[i].id,"\t",
-                  self.listOfProducts[i].name,"\t",
-                  self.listOfProducts[i].price,"\t",
-                  self.listOfProducts[i].quantity)
+            print(self.listOfProducts[i].id,"\t", self.listOfProducts[i].name,"\t", self.listOfProducts[i].price,"\t", self.listOfProducts[i].quantity)
 
 def createProduct():
     while True:
