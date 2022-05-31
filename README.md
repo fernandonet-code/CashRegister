@@ -7,3 +7,8 @@
 - Eliminar la factura creada
 - Ver la factura creada
 - Y pagar el total de la factura
+
+   Por el momento todas estas acciones el usuario las realizara por consola, pero se espera que conforme avance en mi proceso de aprendizaje pueda diseñar una pequeña interfaz para el proyecto.
+   
+   Además, se desea agregar el proceso de almacenamiento de los datos ingresados en una base de datos relacional desde Python con el módulo MySQLdb.
+  
