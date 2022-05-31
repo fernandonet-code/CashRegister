@@ -13,4 +13,6 @@ Por el momento todas estas acciones el usuario las realizara por consola, pero s
 Además, se desea agregar el proceso de almacenamiento de los datos ingresados en una base de datos relacional desde Python con el módulo MySQLdb.
 
 ![Main_menu](img/menu.png)
+![Customer_data](img/Customer_data.png)
+![Product_data](img/Product_data.png)
   
