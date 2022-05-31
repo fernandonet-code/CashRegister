@@ -1,4 +1,1 @@
 # CashRegister
-
-***
-Hola
